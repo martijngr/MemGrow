@@ -9,12 +9,18 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      title: 'MemGrow - Home'
+    },
   },
   {
     path: '/addMemGrow',
     name: 'AddMemGrow',
     component: AddMemGrow,
+    meta: {
+      title: 'MemGrow - Add seed'
+    },
   },
   {
     path: '/about',
@@ -22,7 +28,10 @@ Vue.use(VueRouter)
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    meta: {
+      title: 'MemGrow - About'
+    },
   }
 ]
 

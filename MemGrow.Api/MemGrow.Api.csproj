@@ -6,5 +6,10 @@
     <RootNamespace>MemGrow.Api</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MemGrow.App.DI\MemGrow.App.DI.csproj" />
+    <ProjectReference Include="..\MemGrow.App.Domain\MemGrow.App.Domain.csproj" />
+  </ItemGroup>
+
 
 </Project>

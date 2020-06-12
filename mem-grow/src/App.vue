@@ -44,6 +44,19 @@
   </div>
 </template>
 
+<script>
+export default {
+  watch: {
+    '$route'(to){
+      document.title = to.meta.title || 'MemGrow';
+    }
+  },
+  created() {
+    document.title = "MemGrow";
+  },
+}
+</script>
+
 <style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
