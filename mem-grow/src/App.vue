@@ -21,7 +21,7 @@
             <span class="sr-only">(current)</span>
           </li>
           <li class="nav-item">
-            <router-link to="/addMemGrow" class="nav-link">Add MemGrow</router-link>
+            <router-link to="/addMemGrow" class="nav-link">Add seed</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/about" class="nav-link">About</router-link>

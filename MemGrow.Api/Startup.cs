@@ -25,6 +25,7 @@ namespace MemGrow
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
 
             ServiceConfigurator.RegisterServices(services, Configuration.GetConnectionString("AppDbContext"));
@@ -33,6 +34,11 @@ namespace MemGrow
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Make sure you call this before calling app.UseMvc()
+            app.UseCors(
+                options => options.WithOrigins("*").AllowAnyMethod()
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

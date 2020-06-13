@@ -22,40 +22,28 @@
 </template>
 
 <script>
+import {SeedCategoryService} from '../services/SeedCategoryService';
 
 export default {
   name: "memGrowCategoryDropdown",
   data() {
     return {
-      categories: [],
+      categories: [{
+        id:0,
+        name:'Nieuwe categorie'
+      }],
       selectedItem: "",
       createNewCategory: false,
       newCategoryName: ""
     };
   },
-  created() {
-    this.loadCategories();
+   async created() {
+    await this.loadCategories();
   },
   methods: {
-    loadCategories() {
-      this.categories = [
-        {
-          name: "Nieuwe categorie aanmaken",
-          id: 0
-        },
-        {
-          name: "Cat 1",
-          id: -1
-        },
-        {
-          name: "Cat 2",
-          id: -2
-        },
-        {
-          name: "Cat 3",
-          id: -3
-        }
-      ];
+     async loadCategories() {
+      const apiCategories = await SeedCategoryService.getSeedCategories();
+      this.categories = this.categories.concat(apiCategories);
     },
     valueChanged() {
       if (this.selectedItem === 0) {
