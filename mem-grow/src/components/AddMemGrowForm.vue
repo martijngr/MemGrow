@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="onSave">
     <div class="form-group">
       <label for="exampleInputEmail1">Welk zaadje moet gepland worden?</label>
       <input
@@ -14,17 +14,21 @@
       <label for="category">Category</label>
       <MemGrowCategoryDropdown @changed="onCategoryChanged" />
     </div>
-    <button type="submit" class="btn btn-primary">Opslaan</button>
+    <button type="submit" class="btn btn-primary" :disabled=!canSaveForm()>Opslaan</button>
     <div>
       <pre>
         {{memgrow}} in category {{selectedCategory}}
         </pre>
     </div>
+    <pre>
+      {{$v}}
+      </pre>
   </form>
 </template>
 
 <script>
 import MemGrowCategoryDropdown from "./MemGrowCategoryDropdown.vue";
+import { required, minValue } from "vuelidate/lib/validators";
 
 export default {
   name: "AddMemGrowForm",
@@ -39,7 +43,24 @@ export default {
       onCategoryChanged(categoryId){
           this.selectedCategory = categoryId;
       },
+      onSave(){
+        if(this.$v.$invalid){
+          alert('invalid form!');
+        }
+        else{
+          alert('Saved!');
+        }
+      },
+      canSaveForm(){
+          return !this.$v.$invalid;
+        }
   },
+  validations: {
+    selectedCategory: {
+      required,
+      minValue: minValue(1)
+    }
+  }
 };
 </script>
 

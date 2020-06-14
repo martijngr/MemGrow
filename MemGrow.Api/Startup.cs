@@ -36,7 +36,10 @@ namespace MemGrow
         {
             // Make sure you call this before calling app.UseMvc()
             app.UseCors(
-                options => options.WithOrigins("*").AllowAnyMethod()
+                options => options
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
             );
 
             if (env.IsDevelopment())

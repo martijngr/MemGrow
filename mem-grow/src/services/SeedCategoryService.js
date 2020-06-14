@@ -11,6 +11,19 @@ const getSeedCategories = async function () {
     }
 };
 
+const addSeedCategory = async function(newSeedCategoryName){
+    try {
+        const payload = {
+            name: newSeedCategoryName
+        };
+        const response = await axios.post(`${API}SeedCategory`, payload);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export const SeedCategoryService = {
-    getSeedCategories
+    getSeedCategories,
+    addSeedCategory
 };

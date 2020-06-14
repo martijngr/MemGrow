@@ -69,37 +69,43 @@ export default {
         this.$nextTick(function() {
           this.$refs.newCategoryInput.focus();
         });
-      } else {
-        this.$emit("changed", this.selectedItem);
-      }
+      } 
+      
+      this.$emit("changed", this.selectedItem);
+      
     },
     cancelNewCategory() {
       this.selectedItem = "";
       this.createNewCategory = false;
-    },
-    saveNewCategory() {
-      let cats = [...this.categories];
-      var newCat = {
-        id: parseInt(Math.random() * 10),
-        name: this.newCategoryName
-      };
-      cats.push(newCat);
 
-      this.categories = cats;
-      this.selectedItem = newCat.id;
-      this.createNewCategory = false;
-      this.newCategoryName = "";
       this.valueChanged();
-    }
-  },
-  computed: {
+    },
+    async saveNewCategory() {
+      if (!this.canSaveNewCategory()) {
+        alert("Invalid category name");
+      } else {
+        var saveResult = await SeedCategoryService.addSeedCategory(this.newCategoryName);
+
+        let cats = [...this.categories];
+        var newCat = {
+          id: saveResult,
+          name: this.newCategoryName
+        };
+        cats.push(newCat);
+
+        this.categories = cats;
+        this.selectedItem = newCat.id;
+        this.createNewCategory = false;
+        this.newCategoryName = "";
+        this.valueChanged();
+      }
+    },
     canSaveNewCategory() {
       if (this.createNewCategory && !this.$v.newCategoryName.$invalid) {
         return true;
+      } else {
+        return false;
       }
-    else{
-      return false;
-    }
     }
   },
   components: { AddButton, CancelButton },
