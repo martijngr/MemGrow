@@ -13,35 +13,53 @@
       >{{ category.name }}</option>
     </select>
 
-    <div v-show="createNewCategory">
-      <input type="text" v-model="newCategoryName" ref="newCategoryInput" class="form-control" />
-      <button type="button" @click="saveNewCategory()" class="btn btn-primary">+</button>
-      <button type="button" class="btn btn-warning" @click="cancelNewCategory()">X</button>
+    <div
+      v-show="createNewCategory"
+      style="display: flex; justify-content:space-between; align-items:center"
+    >
+      <input
+        type="text"
+        v-model="newCategoryName"
+        ref="newCategoryInput"
+        :class="{'form-control':true, 'error':$v.newCategoryName.$invalid}"
+        style="width:75%;"
+      />
+      <div>
+        <AddButton @onClick="saveNewCategory" :disabled="!canSaveNewCategory" />
+      </div>
+      <div>
+        <CancelButton @onClick="cancelNewCategory" />
+      </div>
     </div>
   </span>
 </template>
 
 <script>
-import {SeedCategoryService} from '../services/SeedCategoryService';
+import { SeedCategoryService } from "../services/SeedCategoryService";
+import AddButton from "../form-elements/AddButton";
+import CancelButton from "../form-elements/CancelButton";
+import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   name: "memGrowCategoryDropdown",
   data() {
     return {
-      categories: [{
-        id:0,
-        name:'Nieuwe categorie'
-      }],
+      categories: [
+        {
+          id: 0,
+          name: "Nieuwe categorie"
+        }
+      ],
       selectedItem: "",
       createNewCategory: false,
       newCategoryName: ""
     };
   },
-   async created() {
+  async created() {
     await this.loadCategories();
   },
   methods: {
-     async loadCategories() {
+    async loadCategories() {
       const apiCategories = await SeedCategoryService.getSeedCategories();
       this.categories = this.categories.concat(apiCategories);
     },
@@ -73,9 +91,30 @@ export default {
       this.newCategoryName = "";
       this.valueChanged();
     }
+  },
+  computed: {
+    canSaveNewCategory() {
+      if (this.createNewCategory && !this.$v.newCategoryName.$invalid) {
+        return true;
+      }
+    else{
+      return false;
+    }
+    }
+  },
+  components: { AddButton, CancelButton },
+  validations: {
+    newCategoryName: {
+      required,
+      minLength: minLength(2)
+    }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.error {
+  border-color: red;
+  background: #fdd;
+}
 </style>
