@@ -15,6 +15,7 @@ namespace MemGrow.Api.Controllers
             _commandProcessor = commandProcessor;
         }
 
+        [HttpPost]
         public IActionResult Post(AddSeedCommand command)
         {
             var result = _commandProcessor.Handle(command);

@@ -1,23 +1,23 @@
 <template>
   <form @submit.prevent="onSave">
     <div class="form-group">
-      <label for="exampleInputEmail1">Welk zaadje moet gepland worden?</label>
+      <label for="seed">Welk zaadje moet gepland worden?</label>
       <input
         type="text"
         class="form-control"
-        id="memgrow"
+        id="seed"
         placeholder="Wat wil je onthouden?"
-        v-model="memgrow"
+        v-model="vm.seed"
       />
     </div>
     <div class="form-group">
       <label for="category">Category</label>
       <MemGrowCategoryDropdown @changed="onCategoryChanged" />
     </div>
-    <button type="submit" class="btn btn-primary" :disabled=!canSaveForm()>Opslaan</button>
+    <button type="submit" class="btn btn-primary" :disabled="!canSaveForm()">Opslaan</button>
     <div>
       <pre>
-        {{memgrow}} in category {{selectedCategory}}
+        {{vm.seed}} in category {{vm.selectedCategory}}
         </pre>
     </div>
     <pre>
@@ -29,36 +29,45 @@
 <script>
 import MemGrowCategoryDropdown from "./MemGrowCategoryDropdown.vue";
 import { required, minValue } from "vuelidate/lib/validators";
+import {SeedService} from '../services/SeedService';
 
 export default {
   name: "AddMemGrowForm",
   data() {
     return {
-      memgrow: "",
-      selectedCategory: ""
+      vm: {
+        seed: "",
+        selectedCategory: ""
+      }
     };
   },
-  components: {MemGrowCategoryDropdown},
+  components: { MemGrowCategoryDropdown },
   methods: {
-      onCategoryChanged(categoryId){
-          this.selectedCategory = categoryId;
-      },
-      onSave(){
-        if(this.$v.$invalid){
-          alert('invalid form!');
-        }
-        else{
-          alert('Saved!');
-        }
-      },
-      canSaveForm(){
-          return !this.$v.$invalid;
-        }
+    onCategoryChanged(categoryId) {
+      this.vm.selectedCategory = categoryId;
+    },
+    async onSave() {
+      if (this.$v.$invalid) {
+        alert('invalid form!');
+      } else {
+        await SeedService.saveSeed(this.vm);
+
+        alert("Saved!");
+      }
+    },
+    canSaveForm() {
+      return !this.$v.vm.$invalid;
+    }
   },
   validations: {
-    selectedCategory: {
-      required,
-      minValue: minValue(1)
+    vm: {
+      selectedCategory: {
+        required,
+        minValue: minValue(1)
+      },
+      seed: {
+        required
+      }
     }
   }
 };

@@ -61,7 +61,14 @@ export default {
   methods: {
     async loadCategories() {
       const apiCategories = await SeedCategoryService.getSeedCategories();
-      this.categories = this.categories.concat(apiCategories);
+
+      if (this.canAddNew){
+        this.categories = this.categories.concat(apiCategories);
+      }
+      else{
+         this.categories = apiCategories;
+         this.selectedItem = this.categories[0].id;
+      }
     },
     valueChanged() {
       if (this.selectedItem === 0) {
@@ -69,10 +76,9 @@ export default {
         this.$nextTick(function() {
           this.$refs.newCategoryInput.focus();
         });
-      } 
-      
+      }
+
       this.$emit("changed", this.selectedItem);
-      
     },
     cancelNewCategory() {
       this.selectedItem = "";
@@ -84,7 +90,9 @@ export default {
       if (!this.canSaveNewCategory()) {
         alert("Invalid category name");
       } else {
-        var saveResult = await SeedCategoryService.addSeedCategory(this.newCategoryName);
+        var saveResult = await SeedCategoryService.addSeedCategory(
+          this.newCategoryName
+        );
 
         let cats = [...this.categories];
         var newCat = {
@@ -113,6 +121,12 @@ export default {
     newCategoryName: {
       required,
       minLength: minLength(2)
+    }
+  },
+  props: {
+    canAddNew: {
+      type: Boolean,
+      default: true
     }
   }
 };
