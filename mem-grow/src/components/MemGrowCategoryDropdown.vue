@@ -57,17 +57,17 @@ export default {
   },
   async created() {
     await this.loadCategories();
+    this.selectedItem = this.selected;
   },
   methods: {
     async loadCategories() {
       const apiCategories = await SeedCategoryService.getSeedCategories();
 
-      if (this.canAddNew){
+      if (this.canAddNew) {
         this.categories = this.categories.concat(apiCategories);
-      }
-      else{
-         this.categories = apiCategories;
-         this.selectedItem = this.categories[0].id;
+      } else {
+        this.categories = apiCategories;
+        this.selectedItem = this.categories[0].id;
       }
     },
     valueChanged() {
@@ -127,6 +127,14 @@ export default {
     canAddNew: {
       type: Boolean,
       default: true
+    },
+    selected: {
+      type: Number
+    }
+  },
+  watch: {
+    selected(newVal) {
+      this.selectedItem = newVal;
     }
   }
 };

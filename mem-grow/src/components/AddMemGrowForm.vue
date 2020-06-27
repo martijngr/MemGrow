@@ -2,13 +2,13 @@
   <form @submit.prevent="onSave">
     <div class="form-group">
       <label for="seed">Welk zaadje moet gepland worden?</label>
-      <input
-        type="text"
+      <textarea
+      v-on:keydown.enter="$event.stopPropagation()"
         class="form-control"
         id="seed"
         placeholder="Wat wil je onthouden?"
         v-model="vm.seed"
-      />
+      ></textarea>
     </div>
     <div class="form-group">
       <label for="category">Category</label>

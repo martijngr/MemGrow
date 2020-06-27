@@ -8,8 +8,4 @@
     <ProjectReference Include="..\Common.Cqs\Common.Cqs.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Seeding\GetSeeds\" />
-  </ItemGroup>
-
 </Project>

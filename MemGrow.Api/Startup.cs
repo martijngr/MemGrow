@@ -46,7 +46,7 @@ namespace MemGrow
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseDeveloperExceptionPage();
             app.UseRouting();
 
             app.UseAuthorization();

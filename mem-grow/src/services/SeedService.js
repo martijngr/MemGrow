@@ -2,7 +2,6 @@ import * as axios from 'axios';
 import { API } from '../config';
 
 const saveSeed = async function (viewModel) {
-    console.log("saving viewmodel", viewModel);
     try {
         var postData = {
             description: viewModel.seed,
@@ -16,6 +15,18 @@ const saveSeed = async function (viewModel) {
     }
 };
 
+const getSeeds = async function(){
+    try {
+        const response = await axios.get(`${API}Seed`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        alert('An error occured while fetching the seeds from the API');
+        return [];
+    }
+}
+
 export const SeedService = {
-    saveSeed
+    saveSeed, 
+    getSeeds
 };

@@ -6,6 +6,10 @@ input, select, textarea{
     cursor: pointer;
 }
 
+.btn-icon.default{
+    color:black;
+}
+
 .btn-icon.success{
     color:#28a745
 }
@@ -16,5 +20,9 @@ input, select, textarea{
 
 .btn-icon.normal{
     font-size:2em; 
+}
+
+.btn-icon.smaller{
+    font-size:1.5em; 
 }
 
