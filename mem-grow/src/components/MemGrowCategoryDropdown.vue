@@ -41,7 +41,7 @@ import CancelButton from "../form-elements/CancelButton";
 import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
-  name: "memGrowCategoryDropdown",
+  name: "MemGrowCategoryDropdown",
   data() {
     return {
       categories: [

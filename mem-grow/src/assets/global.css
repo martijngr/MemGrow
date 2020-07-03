@@ -7,7 +7,7 @@ input, select, textarea{
 }
 
 .btn-icon.default{
-    color:black;
+    color:#847b7b;
 }
 
 .btn-icon.success{
@@ -23,6 +23,6 @@ input, select, textarea{
 }
 
 .btn-icon.smaller{
-    font-size:1.5em; 
+    font-size:1.2em; 
 }
 

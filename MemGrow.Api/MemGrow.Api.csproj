@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>MemGrow.Api</AssemblyName>
     <RootNamespace>MemGrow.Api</RootNamespace>
+    <Configurations>Debug;Release;Azure</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

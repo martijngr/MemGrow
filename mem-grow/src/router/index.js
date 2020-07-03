@@ -2,10 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import AddMemGrow from '../views/AddMemGrow';
+import EditSeed from '../views/EditSeed';
+import SearchSeed from '../views/SearchSeed';
 
 Vue.use(VueRouter)
 
-  const routes = [
+const parseProps = r => ({ id: parseInt(r.params.id) });
+
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -21,6 +25,26 @@ Vue.use(VueRouter)
     meta: {
       title: 'MemGrow - Add seed'
     },
+  },
+  {
+    path: '/editMemGrow/:id',
+    name: 'EditMemGrow',
+    component: EditSeed,
+    props: parseProps,
+    meta: {
+      title: 'MemGrow - Edit seed'
+    },
+    // component: () =>
+    //   import(/* webpackChunkName: "bundle.heroes" */ './views/hero-detail.vue'),
+  },
+  {
+    path: '/search/:keyword',
+    name: 'search',
+    props: true,
+    meta: {
+      title: 'MemGrow - Search'
+    },
+    component: SearchSeed
   },
   {
     path: '/about',

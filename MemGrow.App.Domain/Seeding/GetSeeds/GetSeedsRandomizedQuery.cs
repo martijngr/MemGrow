@@ -26,7 +26,7 @@ namespace MemGrow.App.Domain.Seeding.GetSeeds
             return randomizedSeeds
                 .Select(s => new GetSeedDto
                 {
-                    CategoryId = s.CategoryId,
+                    CategoryId = s.SeedCategoryId,
                     Description = s.Description,
                     Id = s.Id
                 })

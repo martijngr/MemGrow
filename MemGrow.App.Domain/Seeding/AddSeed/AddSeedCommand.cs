@@ -31,7 +31,7 @@ namespace MemGrow.App.Domain.Seeding.AddSeed
             return new Seed
             {
                 Description = command.Description,
-                CategoryId = command.CategoryId
+                SeedCategoryId = command.CategoryId
             };
         }
     }

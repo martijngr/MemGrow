@@ -27,12 +27,13 @@
             <router-link to="/about" class="nav-link">About</router-link>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-2 my-lg-0" @submit.prevent="onSearch">
           <input
             class="form-control mr-sm-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
+            v-model="vm.keyword"
           />
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
@@ -45,16 +46,31 @@
 </template>
 
 <script>
+import $ from "jquery";
+
 export default {
+  data() {
+    return {
+      vm: {
+        keyword: ""
+      }
+    };
+  },
   watch: {
-    '$route'(to){
-      document.title = to.meta.title || 'MemGrow';
+    $route(to) {
+      document.title = to.meta.title || "MemGrow";
+      $("#navbarSupportedContent").collapse("hide");
     }
   },
   created() {
     document.title = "MemGrow";
   },
-}
+  methods: {
+    onSearch() {
+      this.$router.push({ name: 'search', params:{keyword: this.vm.keyword} });
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -64,7 +80,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.page-content{
+.page-content {
   margin: 0 25px;
 }
 </style>

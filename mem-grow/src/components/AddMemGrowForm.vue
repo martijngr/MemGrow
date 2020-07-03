@@ -8,6 +8,7 @@
         id="seed"
         placeholder="Wat wil je onthouden?"
         v-model="vm.seed"
+        ref="description"
       ></textarea>
     </div>
     <div class="form-group">
@@ -15,14 +16,6 @@
       <MemGrowCategoryDropdown @changed="onCategoryChanged" />
     </div>
     <button type="submit" class="btn btn-primary" :disabled="!canSaveForm()">Opslaan</button>
-    <div>
-      <pre>
-        {{vm.seed}} in category {{vm.selectedCategory}}
-        </pre>
-    </div>
-    <pre>
-      {{$v}}
-      </pre>
   </form>
 </template>
 
@@ -51,8 +44,8 @@ export default {
         alert('invalid form!');
       } else {
         await SeedService.saveSeed(this.vm);
-
-        alert("Saved!");
+        this.vm.seed = "";
+        this.$refs.description.focus();
       }
     },
     canSaveForm() {
