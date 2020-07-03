@@ -1,0 +1,28 @@
+input, select, textarea{
+    box-shadow: none !important;
+}
+
+.btn-icon{
+    cursor: pointer;
+}
+
+.btn-icon.default{
+    color:#847b7b;
+}
+
+.btn-icon.success{
+    color:#28a745
+}
+
+.btn-icon.cancel{
+    color:#ffb733;
+}
+
+.btn-icon.normal{
+    font-size:2em; 
+}
+
+.btn-icon.smaller{
+    font-size:1.2em; 
+}
+
