@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+    reverse-proxy:
+        image: nginx
+        container_name: reverse_proxy
+        depends_on: 
+            - memgrow
+        volumes: 
+            - ./reverse-proxy.nginx.conf:/etc/nginx/nginx.conf
+        ports:
+            - 8080:80
+
+    memgrow:
+        image: mg/memgrow
+        container_name: www-memgrow
+        build:
+            context: .
+            dockerfile: dockerfileNginx.dockerfile
+        ports:
+            - 8081:80

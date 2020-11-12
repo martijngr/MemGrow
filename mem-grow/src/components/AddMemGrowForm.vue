@@ -9,6 +9,7 @@
         placeholder="Wat wil je onthouden?"
         v-model="vm.seed"
         ref="description"
+        rows="10"
       ></textarea>
     </div>
     <div class="form-group">
